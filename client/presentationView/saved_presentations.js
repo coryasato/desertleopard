@@ -1,4 +1,3 @@
-
 Template.savedPresentations.helpers({
   decks : function () {
     return SlideDecks.find({owner:Meteor.userId()});

@@ -4,7 +4,7 @@ if (Meteor.isClient) {
   Session.setDefault("thumbMiddle", 0);
   Session.setDefault("thumbDown", 0);
 
-  Template.thumbresults.helpers({
+  Template.thumbResults.helpers({
     thumbUp: function () {
       return Session.get("thumbUp");
     },
@@ -15,13 +15,6 @@ if (Meteor.isClient) {
       return Session.get("thumbDown");
     }
   });
-
-  //work in progress thumb rotation script
-  function rotateThumb() {
-    var c=document.getElementById("rotatingThumb");
-    var ctx=c.getContext("2d");
-    ctx.rotate(20*Math.PI/180);
-  }
 
   Template.thumb.events({
     'click #thumbUp': function () {
