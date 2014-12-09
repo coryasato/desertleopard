@@ -18,10 +18,10 @@ if (Meteor.isClient) {
 
   //work in progress thumb rotation script
   function rotateThumb() {
-  var c=document.getElementById("rotatingThumb");
-  var ctx=c.getContext("2d");
-  ctx.rotate(20*Math.PI/180);
-  };
+    var c=document.getElementById("rotatingThumb");
+    var ctx=c.getContext("2d");
+    ctx.rotate(20*Math.PI/180);
+  }
 
   Template.thumb.events({
     'click #thumbUp': function () {

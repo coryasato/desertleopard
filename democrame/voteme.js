@@ -8,7 +8,7 @@ if (Meteor.isClient) {
 
   Template.polling.events({
     'click #return': function () {
-      Router.go('/sessions/:_ps_id')
+      Router.go('/sessions/:_ps_id');
     },
   });
 }

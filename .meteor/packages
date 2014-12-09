@@ -4,12 +4,12 @@
 # but you can also edit it by hand.
 
 meteor-platform
-nooitaf:semantic-ui
-sacha:spin
-iron:router
-useraccounts:semantic-ui
 accounts-password
+useraccounts:semantic-ui
+iron:router
+sacha:spin
 chuangbo:marked
 gwendall:body-events
 steeve:jquery-qrcode
+nooitaf:semantic-ui
 
