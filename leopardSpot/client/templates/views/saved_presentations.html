@@ -1,0 +1,40 @@
+<!-- <template name="savedPresentations">
+  <div class="ui segment savedPresentations">
+    <div class="ui divided list">
+      <div class="item">
+        <div class="right floated compact ui button">Review Presentation</div>
+        <div class="right floated compact ui button">Begin Presentation</div>
+        <div class="left content">
+          <div class="header">Presentation Name 1</div>
+        </div>
+      </div>
+      <div class="item">
+        <div class="right floated compact ui button">View</div>
+        <div class="content">
+          <div class="header">Presentation Name 2</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</template> -->
+
+<!-- add button to start new session. To view, just go to slides/route
+else, do sessions/route -->
+
+<template name="savedPresentations">
+  <div class="ui segment savedPresentations">
+    <div class="ui divided list">
+    {{#each decks}}
+      <div class="item">
+        
+        <div class="right floated compact ui button" id="reviewPresentation">Slide Viewer </div>
+        <div class="right floated compact ui button " id="startPresentation"> Begin Presentation</div>
+        <div class="content">
+          <div class="header" id="Title"> {{title}}</div>
+        </div>
+        
+      </div>
+      {{/each}}
+    </div>
+  </div>
+</template> 
