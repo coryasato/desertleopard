@@ -1,36 +1,25 @@
 <template name="slides">
 
-  <div id="counter" class="btn btn-default">
+  <div id="counter" class="ui huge label">
     {{_page}}/{{_slideLength}}
   </div>
-  <div class="slide">    
-    {{#markdown}}
-      {{markDownSource _page}}
-    {{/markdown}}
+  <div class="slide">
+    
+  {{#markdown}}
+    {{markDownSource _page}}
+  {{/markdown}}
   </div>
   <div id="qrcode"></div>
     {{#if isPresentor}}
-    <nav>
-      <ul class="pager" id="#controller">
-        <li ><a href="#" id="prev">Prev</a></li>
-        <li ><a href="#" id="next">Next</a></li>
-      </ul>
-    </nav>
-
+    <div id="#controller">
+      <div class="ui button" id="prev">prev</div>
+      <div class="ui button" id="next">next</div>
+    </div>
     {{/if}}
-
-    <div class="btn btn-primary" id="poll">quickPoll</div>
-
     <div class="ui button" id="poll">quickPoll</div>
     
     <div class="ui button" id="thumbcheck">
       <i class="thumbs up icon"></i>
-    </div>
-  </div>
-
-
-    <div class="btn btn-default" id="thumbcheck">
-      <i class="glyphicon glyphicon-hand-up"></i>
     </div>
   
 </template>
