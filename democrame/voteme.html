@@ -2,23 +2,25 @@
   <title></title>
 </head>
 
+
 <template name="polling">
- <div class="ui indicating progress" id="choiceA" data-percent="{{voteA}}">
-  <div class="bar"></div>
-  <div class="label">A</div>
-</div>
-<div class="ui indicating progress" id="choiceB" data-percent="{{voteB}}">
-  <div class="bar"></div>
-  <div class="label">B</div>
-</div>
-<div class="ui indicating progress" id="choiceC" data-percent="{{voteC}}">
-  <div class="bar"></div>
-  <div class="label">C</div>
-</div>
-<div class="ui indicating progress" id="choiceD" data-percent="{{voteD}}">
-  <div class="bar"></div>
-  <div class="label">D</div>
-</div>
+
+
+  <div class="progress">
+    <div class="progress-bar progress-bar-success" style="width: {{voteA}}%" id="choiceA" >
+      <span class="sr-only"> <div class="btn btn-success">A</div> </span>
+    </div>
+    <div class="progress-bar progress-bar-warning progress-bar-striped" style="width: {{voteB}}%" id="choiceB">
+      <span class="sr-only"><div class="btn btn-warning">B</div></span>
+    </div>
+    <div class="progress-bar progress-bar-danger" style="width: {{voteC}}%"  id="choiceC">
+      <span class="sr-only"> <div class="btn btn-danger">C</div></span>
+    </div>
+    <div class="progress-bar progress-bar-info" style="width: {{voteD}}%"  id="choiceD" >
+      <span class="sr-only">  <div class="btn btn-info">D</div></span>
+    </div>
+  </div>
+
 
 <script type="text/javascript">
   $('#choiceA').progress();
@@ -27,10 +29,10 @@
   $('#choiceD').progress();
 </script>
 
- <p>Users have voted for A {{voteA}} times.</p>
-  <p>Users have voted for B {{voteB}} times.</p>
-  <p>Users have voted for C {{voteC}} times.</p>
-  <p>Users have voted for D {{voteD}} times.</p>
+ <p>Users have voted for <span class="btn btn-success disabled" >A</span> {{voteA}} times.</p>
+  <p>Users have voted for <span class="btn btn-warning disabled">B</span> {{voteB}} times.</p>
+  <p>Users have voted for <span class="btn btn-danger disabled">C</span> {{voteC}} times.</p>
+  <p>Users have voted for <span class="btn btn-info disabled">D</span> {{voteD}} times.</p>
 <div class="ui button" id="return">Return To Slides</div>
 
 
