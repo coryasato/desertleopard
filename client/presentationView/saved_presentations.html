@@ -21,19 +21,17 @@
 <!-- add button to start new session. To view, just go to slides/route
 else, do sessions/route -->
 
-<template name="savedPresentations">
+<template name="Presentations">
   <div class="ui segment savedPresentations">
     <div class="ui divided list">
-    {{#each decks}}
-      <div class="item">
-        
-        <div class="right floated compact ui button" id="reviewPresentation">Slide Viewer </div>
-        <div class="right floated compact ui button " id="startPresentation"> Begin Presentation</div>
-        <div class="content">
-          <div class="header" id="Title"> {{title}}</div>
+      {{#each decks}}
+        <div class="item">
+          <div class="content">
+            <div class="header" id="Title"> {{title}}</div>
+          </div>
+          <div class="right floated compact ui button" id="reviewPresentation">Slide Viewer </div>
+          <div class="right floated compact ui button " id="beginPresentation"> Begin Presentation</div>
         </div>
-        
-      </div>
       {{/each}}
     </div>
   </div>
