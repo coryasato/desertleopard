@@ -1,5 +1,10 @@
 <template name="layout">
-  <div class="container">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+  </head>
+
+  <div class="">
     {{> header}}
     <!-- this iron-router helper will define a special dynamic zone that will automaticall render whichever template corresponds to the current route  -->
     {{> yield}}
@@ -17,17 +22,10 @@
           <span class="icon-bar"></span>
           <span class="icon-bar"></span>
         </button>
-        <a class="navbar-brand" href="#">LeopardSpot</a>
+        <a class="navbar-brand" href="/">LeopardSpot</a>
       </div>
       <!-- Collect the nav links, forms, and other content for toggling -->
       <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-        <ul class="nav navbar-nav">
-          <li class="active">
-            <a class="left item" href="{{pathFor 'intro'}}"> 
-              <i class="home icon"></i> Home
-            </a>
-          </li>
-        </ul>
         <ul class="nav navbar-nav navbar-right">
           <li>
             {{#if currentUser}}
