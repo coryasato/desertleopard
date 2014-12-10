@@ -1,19 +1,31 @@
+
 <template name="createPresentation">
-
-  <form id="mdRawForm">
-    <div class="ui form large segment textEditor">
-
-      <div class="ui labeled input textEditor">
-        <div class="ui label textEditor">Presentation Title</div>
-        <input type="text" class="textEditor" id="presentationTitle" placeholder="Enter new title here...">
-      </div>
-
-      <textarea id="mdRawTextArea" class="textEditor" 
-                placeholder="Type slide markdown here, separating slides with * * *. For an online markdown editor, use http://dillinger.io/">
-      </textarea>
-      <button class="ui button createBtn" type="submit" value="submit">Create!</button>
+ <form id="mdRawForm" class="form">
+  <div class="form-group">
+       <label for="exampleInputPassword1"> Presentation Title</label>
+       <input type="text" class="textEditor form-control" id="presentationTitle" placeholder="Enter new title here...">
+     </div>
+    <div class="form-group">
+      <label for="exampleInputPassword1"> Type slide markdown here</label>
+      <textarea  id="mdRawTextArea" class="form-control textEditor" rows="3"></textarea>
+      <p class="help-block">Separating slides with * * *. For an online markdown editor, use http://dillinger.io/</p>
 
     </div>
-  </form>
+    <button class="btn btn-primary createBtn" type="submit" value="submit">Create!</button>
+    <!-- <div class="segment presentationCommands">
+      <div class="ui steps presentationCommands">
+        <a class="step">
+          <div class="content">
+            <div class="title">Save Presentation</div>
+          </div>
+        </a>
+        <a class="active step">
+          <div class="content">
+            <div class="title">New Presentation</div>
+          </div>
+        </a>
+      </div>
+    </div> -->
 
+  </form>
 </template>
