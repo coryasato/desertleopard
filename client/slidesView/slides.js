@@ -4,6 +4,7 @@ ID.id = Session.get('_ps_id') + '_stopwatch';
 Session.set(Session.get('_ps_id') + '_stopwatch', localStorage.getItem(ID.id));
 
 var fetchDep = new Tracker.Dependency;
+
 var handle = Tracker.autorun(function() {
   var foundSessionOrNonSession = true;
   if ( Session.get('isSession') ) {
@@ -31,15 +32,16 @@ var handle = Tracker.autorun(function() {
 
 });
 
-var validatePageNum = function(pg) {
-  if ( pg < 1 ) {
+var validatePageNum = function(page) {
+  if ( page < 1 ) {
     return false;
-  } else if ( pg > Session.get('_slideLength') ) {
+  } else if ( page > Session.get('_slideLength') ) {
     return false;
   }
   return true;
 };
 
+// Predicate Function
 var isPresentor = function() {
   fetchDep.depend();
   if ( Session.get('isSession') ) {
