@@ -203,9 +203,9 @@ var uiBodyKeyBindingHandler = Tracker.autorun(function() {
 });
 
 Tracker.autorun( function() {
-  if (Session.get('_page')===0) {
+  if (Session.get('_page') === 0) {
     $("#qrcode")
-    .qrcode({width: 400,height: 400,text: "http://leospot.pio.tw/sessions/"+Session.get('_ps_id')});
+    .qrcode({width: 400,height: 400,text: "http://leospot.pio.tw/sessions/" + Session.get('_ps_id')});
   } else {
     $("#qrcode").hide();
   }
