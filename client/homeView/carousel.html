@@ -1,0 +1,73 @@
+<template name="carousel">
+
+  <div id="myCarousel" class="carousel slide" data-ride="carousel">
+
+    <!-- Indicators -->
+    <ol class="carousel-indicators">
+      <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
+      <li data-target="#myCarousel" data-slide-to="1"></li>
+      <li data-target="#myCarousel" data-slide-to="2"></li>
+    </ol>
+
+    <div class="carousel-inner" role="listbox">
+
+      <div class="item active">
+
+        <div class="bg-img">
+          <img src="/assets/background.jpeg">
+        </div>
+
+        <div class="container">
+          <div class="carousel-caption">
+            <h1>For presenters who know the value of realtime feedback and audience participation</h1>
+            <p><a class="btn btn-lg btn-primary button-custom" href="{{pathFor 'createPresentation'}}" role="button">New presentation</a></p>
+          </div>
+        </div>
+
+      </div>
+
+      <div class="item">
+
+        <div class="bg-img">
+          <img src="/assets/bg_alternate.png">
+        </div>
+
+        <div class="container">
+          <div class="carousel-caption">
+            <h1>An interactive slideshow maker and presentation tool</h1>
+            <p><a class="btn btn-lg btn-primary button-custom" href="{{pathFor 'Presentations'}}" role="button">View presentations</a></p>
+          </div>
+        </div>
+
+      </div>
+
+      <div class="item">
+
+        <div class="bg-img">
+          <img src="/assets/background.jpeg">
+        </div>
+
+        <div class="container">
+          <div class="carousel-caption">
+            <h1>Sign up and make slides at<br>www.leopardspotbeta.meteor.com</h1>
+            <p><a class="btn btn-lg btn-primary button-custom" href="http://www.leopardspotbeta.meteor.com" role="button">Sign up</a></p>
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+
+    <a class="left carousel-control" href="#myCarousel" role="button" data-slide="prev">
+      <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
+      <span class="sr-only">Previous</span>
+    </a>
+
+    <a class="right carousel-control" href="#myCarousel" role="button" data-slide="next">
+      <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
+      <span class="sr-only">Next</span>
+    </a>
+
+  </div><!-- /.carousel -->
+
+</template>
