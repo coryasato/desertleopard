@@ -1,6 +1,5 @@
 <template name="layout">
-  <link rel="stylesheet" type="text/css" href="main.css">
-  <div class="container jumbotron">
+  <div class="container">
     {{> header}}
     <!-- this iron-router helper will define a special dynamic zone that will automaticall render whichever template corresponds to the current route  -->
     {{> yield}}
@@ -8,25 +7,42 @@
 </template>
 
 <template name="header"> <!-- this includes navBar --> 
-  <div class="ui large inverted menu leopardNav">
-    <a class="left item leopardNav" href="{{pathFor 'intro'}}"> 
-      <i class="home icon"></i> Home
-    </a>
-    <a class="item leopardNav title" href="{{pathFor 'intro'}}"> 
-     <h2>LeopardSpot</h2>
-    </a>
-    <div class="right menu leopardNav">
-      {{#if currentUser}}
-      <div  id="logout">
-        <a class="item leopardNav">
-          <i class="sign out icon"></i> Log Out
-        </a>
+  <nav class="navbar navbar-inverse" role="navigation">
+    <div class="container-fluid">
+      <!-- Brand and toggle get grouped for better mobile display -->
+      <div class="navbar-header">
+        <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+          <span class="sr-only">Toggle navigation</span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <a class="navbar-brand" href="#">LeopardSpot</a>
       </div>
-      {{else}}
-      <a class="item leopardNav" href="{{pathFor 'signup'}}">
-        <i class="user icon"></i> Sign Up / Log-In
-      </a>
-      {{/if}}
-    </div>
-  </div>
+      <!-- Collect the nav links, forms, and other content for toggling -->
+      <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+        <ul class="nav navbar-nav">
+          <li class="active">
+            <a class="left item" href="{{pathFor 'intro'}}"> 
+              <i class="home icon"></i> Home
+            </a>
+          </li>
+        </ul>
+        <ul class="nav navbar-nav navbar-right">
+          <li>
+            {{#if currentUser}}
+
+            <a class="item" id="logout">
+              <i class="sign out icon"></i> Log Out
+            </a>
+            {{else}}
+            <a class="item" href="{{pathFor 'signup'}}">
+              <i class="user icon"></i> Sign Up / Log-In
+            </a>
+            {{/if}}
+          </li>
+        </ul>
+      </div><!-- /.navbar-collapse -->
+    </div><!-- /.container-fluid -->
+  </nav>
 </template>

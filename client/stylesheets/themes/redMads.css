@@ -1,5 +1,11 @@
 /*@import "../basic.css";*/
 
+@import url(http://fonts.googleapis.com/css?family=Raleway:400,100,200,300,500,600,700);
+
+body{
+	font-family: 'Raleway', sans-serif;
+}
+
 .slide-view-module {
 	margin-top: 4em;
 }
@@ -19,7 +25,6 @@
 	-khtml-transition:  opacity 200ms ease;
 	-ms-transition:     opacity 200ms ease;
 	
-	/*opacity: 0;*/
 }
 
 .slide h1 {
