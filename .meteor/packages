@@ -5,11 +5,11 @@
 
 meteor-platform
 accounts-password
-useraccounts:semantic-ui
 iron:router
 sacha:spin
 chuangbo:marked
 gwendall:body-events
 steeve:jquery-qrcode
 mizzao:bootstrap-3
+useraccounts:bootstrap
 
