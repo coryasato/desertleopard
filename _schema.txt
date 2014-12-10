@@ -1,38 +1,3 @@
-SlideDeck
-{
-  (_id:integer)
-  owner:integer(uid)
-  mdRaw:string
-  mdSlides:[Array of ColumnIds]
-  title: 
-}
-
-PresentSession
-{
-  (_id:integer)
-  hash:string
-
-  slideDeck_id:integer 
-  presenter_id:integer(uid)
-
-  page:integer
-  polls:
-  [
-    { page:integer, poll_id },
-    { page:integer, poll_id },
-    ...
-  ]
-
-}
-
-Polls
-{
-  a:[user_id...],
-  b:[user_id...],
-  c:[user_id...],
-  d:[user_id...]
-}
-
 Column {
   {
     _id: MongoObjectId
@@ -42,6 +7,36 @@ Column {
   }
 }
 
+SlideDeck
+{
+  _id: Integer
+  owner: Integer(user_id)
+  columnIds: [Array of ColumnIds]
+  title: String
+}
 
+PresentSession {
+
+  (_id:integer)
+  hash:string
+
+  slideDeck_id:integer 
+  presenter_id:integer(uid)
+
+  page:integer
+  polls:
+    [
+      { page:integer, poll_id },
+      { page:integer, poll_id }
+    ]
+}
+
+Polls
+{
+  a:[user_id...],
+  b:[user_id...],
+  c:[user_id...],
+  d:[user_id...]
+}
 
 http://leopardspot.com/session-fos2e3/
