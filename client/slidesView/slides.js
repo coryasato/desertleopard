@@ -31,15 +31,16 @@ var handle = Tracker.autorun(function() {
 
 });
 
-var validatePageNum = function(pg) {
-  if ( pg < 1 ) {
+var validatePageNum = function(page) {
+  if ( page < 1 ) {
     return false;
-  } else if ( pg > Session.get('_slideLength') ) {
+  } else if ( page > Session.get('_slideLength') ) {
     return false;
   }
   return true;
 };
 
+// Predicate Function
 var isPresentor = function() {
   fetchDep.depend();
   if ( Session.get('isSession') ) {
