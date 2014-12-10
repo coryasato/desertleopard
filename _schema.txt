@@ -3,7 +3,7 @@ SlideDeck
   (_id:integer)
   owner:integer(uid)
   mdRaw:string
-  mdSlides:array of string
+  mdSlides:[Array of ColumnIds]
   title: 
 }
 
@@ -31,6 +31,15 @@ Polls
   b:[user_id...],
   c:[user_id...],
   d:[user_id...]
+}
+
+Column {
+  {
+    _id: MongoObjectId
+    ColumnTitle: "String"
+    SlideDeck.mdSlides: [Array of slides / "strings"];
+    lastIndex: "Integer" 
+  }
 }
 
 

@@ -4,6 +4,7 @@ ID.id = Session.get('_ps_id') + '_stopwatch';
 Session.set(Session.get('_ps_id') + '_stopwatch', localStorage.getItem(ID.id));
 
 var fetchDep = new Tracker.Dependency;
+
 var handle = Tracker.autorun(function() {
   var foundSessionOrNonSession = true;
   if ( Session.get('isSession') ) {
