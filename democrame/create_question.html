@@ -1,0 +1,27 @@
+<template name="createQuestion">
+  <div class="container">
+   
+    <form class="new-question">
+    <input type="text" id="theText" placeholder="Type to add new questions" />
+  </form>
+
+    <ul>
+      {{#each questions}}
+        {{> question}}
+      {{/each}}
+    </ul>
+  </div>
+
+ 
+</template>
+
+
+<template name="question">
+   <li class="{{#if checked}}checked{{/if}}">
+    <!-- <button class="delete">&times;</button> -->
+    
+    <input type="checkbox" checked="{{checked}}" class="toggle-checked" />
+
+    <span class="text">{{text}}</span>
+  </li>
+</template>
