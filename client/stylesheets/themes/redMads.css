@@ -43,7 +43,7 @@ body {
 
 /* Carousel base class */
 .carousel {
-  height: 500px;
+  height: 525px;
   margin-bottom: 50px;
 }
 
@@ -54,7 +54,7 @@ body {
 
 /* Declare heights because of positioning of img element */
 .carousel .item {
-  height: 500px;
+  height: 525px;
   background-color: #777;
 }
 
@@ -63,7 +63,7 @@ body {
   top: 0;
   left: 0;
   min-width: 100%;
-  height: 500px;
+  height: 525px;
 }
 
 /* MARKETING CONTENT
@@ -142,4 +142,12 @@ body {
 
 .bg-img {
   opacity: 0.75;
+  display: block;
+  height: 100%;
+  min-width: 750px;
+}
+
+.bg-img img {
+  width: 100%;
+  min-height: 525px;
 }
