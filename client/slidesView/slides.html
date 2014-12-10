@@ -3,13 +3,12 @@
   <div id="counter" class="btn btn-default">
     {{_page}}/{{_slideLength}}
   </div>
-  <div class="slide" >
-
+  <div class="slide">    
     {{#markdown}}
-    {{markDownSource _page}}
+      {{markDownSource _page}}
     {{/markdown}}
-
-    <div id="qrcode" ></div>
+  </div>
+  <div id="qrcode"></div>
     {{#if isPresentor}}
     <nav>
       <ul class="pager" id="#controller">
