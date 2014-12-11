@@ -43,7 +43,14 @@ Questions{
   (_id:integer)
   slideDeck_id:integer
   text: string
+  user_id:integer
 
+}
+
+Votes{
+  (_id:integer)
+  question_id
+  user_id
 }
 
 http://leopardspot.com/session-fos2e3/

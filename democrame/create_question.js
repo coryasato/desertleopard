@@ -7,11 +7,16 @@ Template.createQuestion.helpers({
 });
 
 Template.results.helpers({
-  calculation: function(rating, votes){
-    var calculation = (rating / votes) * 100;
-    return calculation;
+  // countAllVotes :function(){
+  //   var theCounts = Votes.find();
+  //   return theCounts;
+  // },
+  countVotes: function(theQuestion){
+    var theCounts = Votes.find({'question_id':theQuestion});
+    console.log('Counts: ', theCounts, ' with this Qid: ' + theQuestion);
+    return theCounts.count();
   }
-})
+});
 
 Template.createQuestion.events({
   'submit .new-question': function (evt, template) {
@@ -43,16 +48,16 @@ Template.createQuestion.events({
       }
     });
   } ,
-  'click #vote-no': function(evt, template){
-    evt.preventDefault();
-    var rule = this;
-    var id = evt.currentTarget.name;
-    Meteor.call('voteNo', id, function(err) {
-      console.log('vote yes Clicked', id);
-      if(err) { console.log(err); 
-      }
-    });
-  }  
+  // 'click #vote-no': function(evt, template){
+  //   evt.preventDefault();
+  //   var rule = this;
+  //   var id = evt.currentTarget.name;
+  //   Meteor.call('voteNo', id, function(err) {
+  //     console.log('vote yes Clicked', id);
+  //     if(err) { console.log(err); 
+  //     }
+  //   });
+  // }  
 });
 
 }
