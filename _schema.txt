@@ -39,4 +39,11 @@ Polls
   d:[user_id...]
 }
 
+Questions{
+  (_id:integer)
+  slideDeck_id:integer
+  text: string
+
+}
+
 http://leopardspot.com/session-fos2e3/
