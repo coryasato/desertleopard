@@ -2,7 +2,7 @@ Column {
   {
     _id: MongoObjectId
     ColumnTitle: "String"
-    SlideDeck.mdSlides: [Array of slides / "strings"];
+    slides: [Array of slides / "strings"];
     lastIndex: "Integer" 
   }
 }
