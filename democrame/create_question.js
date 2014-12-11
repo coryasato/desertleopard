@@ -5,7 +5,7 @@ Template.createQuestion.helpers({
     return Questions.find();
   },
   getSlideDeckId: function(){
-    return Session.get('currentSlideDeck');
+    return Session.get('_sd_id');
   }
 
 });
