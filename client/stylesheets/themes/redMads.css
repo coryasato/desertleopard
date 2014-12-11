@@ -29,6 +29,11 @@ form {
   margin-top: 60px;
 }
 
+#access-denied {
+  padding-right: 25%;
+  padding-left: 25%;
+}
+
 /* CUSTOMIZE THE NAVBAR
 -------------------------------------------------- */
 .navbar {
@@ -186,7 +191,8 @@ form {
   top: 85%;
 }
 
-#publish-slides {
+.publish-slides,
+button.at-btn {
   background: #40cb90;
   border: none;
   font-size: 1.4em;
@@ -195,8 +201,27 @@ form {
   padding-right: 20px;
 }
 
-#publish-slides:hover {
+.publish-slides:hover,
+button.at-btn:hover {
   background: #53D09B;
+  color: white;
+}
+
+button.at-btn {
+  width: 100px;
+  color: white;
+}
+
+button.at-btn:focus {
+  outline: none;
+  background: #53D09B;
+  color: white;
+  border: 1px solid white;
+}
+
+div.at-signin-link p {
+  margin-top: 20px;
+  text-align: left;
 }
 
 /* RESPONSIVE CSS
