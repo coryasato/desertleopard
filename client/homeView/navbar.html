@@ -1,0 +1,41 @@
+<template name="navigation">
+  
+  <nav id="transparent-nav" class="navbar navbar-inverse" role="navigation">
+    
+    <div class="container-fluid">
+
+      <!-- Brand and toggle get grouped for better mobile display -->
+      <div class="navbar-header">
+        <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+          <span class="sr-only">Toggle navigation</span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <a id="main-header" class="navbar-brand" href="/">LeopardSpot</a>
+      </div>
+
+      <!-- Collect the nav links, forms, and other content for toggling -->
+      <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+        <ul class="nav navbar-nav navbar-right">
+          <li><a href="{{pathFor 'createPresentation'}}">Make presentation</a></li>
+          <li><a href="{{pathFor 'Presentations'}}">View presentations</a></li>
+          <li>
+            {{#if currentUser}}
+              <a class="item" id="logout">
+                <i class="sign out icon"></i> Logout
+              </a>
+            {{else}}
+              <a class="item" href="{{pathFor 'signup'}}">
+                <i class="user icon"></i> Sign Up / Log-In
+              </a>
+            {{/if}}
+          </li>
+        </ul>
+      </div><!-- /.navbar-collapse -->
+
+    </div><!-- /.container-fluid -->
+
+  </nav>
+
+</template>
