@@ -29,16 +29,6 @@ form {
   margin-top: 60px;
 }
 
-/*.panel-body {
-  float: left;
-  border: none;
-}*/
-
-img {
-  height: 300px;
-  width: 300px;
-}
-
 /* CUSTOMIZE THE NAVBAR
 -------------------------------------------------- */
 .navbar {
@@ -90,13 +80,6 @@ img {
 .carousel-caption {
   z-index: 10;
   margin-bottom: 100px;
-}
-
-.carousel-caption h1 {
-  font-family: 'Open Sans';
-  font-size: 3em;
-  font-weight: 600;
-  margin-bottom: 40px;
 }
 
 /* Declare heights because of positioning of img element */
@@ -176,6 +159,20 @@ img {
 
 /* RESPONSIVE CSS
 -------------------------------------------------- */
+@media (min-width: 300px) {
+  .carousel-caption h1 {
+    font-family: 'Open Sans';
+    font-size: 2.5em;
+    font-weight: 500;
+    margin-bottom: 40px;
+  }
+  .navbar-toggle {
+    border: 1px solid white !important;
+  }
+  .navbar-toggle:hover {
+    background-color: #53D09B !important;
+  }
+}
 
 @media (min-width: 768px) {
   /* Navbar positioning foo */
@@ -202,6 +199,12 @@ img {
   }
   .featurette-heading {
     font-size: 50px;
+  }
+  .carousel-caption h1 {
+    font-family: 'Open Sans';
+    font-size: 3em;
+    font-weight: 600;
+    margin-bottom: 40px;
   }
 }
 

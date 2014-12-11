@@ -1,7 +1,7 @@
 <template name="navigation">
-
+  
   <nav id="transparent-nav" class="navbar navbar-inverse" role="navigation">
-
+    
     <div class="container-fluid">
 
       <!-- Brand and toggle get grouped for better mobile display -->
@@ -23,7 +23,7 @@
           <li>
             {{#if currentUser}}
               <a class="item" id="logout">
-                <i class="sign out icon"></i> Log Out
+                <i class="sign out icon"></i> Logout
               </a>
             {{else}}
               <a class="item" href="{{pathFor 'signup'}}">
