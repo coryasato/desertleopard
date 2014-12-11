@@ -1,9 +1,11 @@
 <template name="accessDenied">
-  <div class="access-denied jumbotron"> <!-- requires a router for sessions -->
+  <div id="access-denied" class="access-denied jumbotron"> <!-- requires a router for sessions -->
     <h2 class="access-denied">Access Denied</h2>
-    <p class="access-denied">You must be signed in to create a presentation. Please log in or sign up.</p>
+    <p class="access-denied">You must be signed in to create a presentation. Please login or signup.</p>
   </div>
   <div class="ui large form segment signup">
-    {{> atForm}}
+    <div class="container">
+      {{> atForm}}
+    </div>
   </div>
 </template>

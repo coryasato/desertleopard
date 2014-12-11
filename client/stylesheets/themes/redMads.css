@@ -29,6 +29,11 @@ form {
   margin-top: 60px;
 }
 
+#access-denied {
+  padding-right: 25%;
+  padding-left: 25%;
+}
+
 /* CUSTOMIZE THE NAVBAR
 -------------------------------------------------- */
 .navbar {
@@ -72,8 +77,8 @@ form {
 
 /* Carousel base class */
 .carousel {
-  height: 525px;
-  margin-bottom: 60px;
+  height: 450px;
+  margin-bottom: 50px;
 }
 
 /* Since positioning the image, we need to help out the caption */
@@ -84,7 +89,7 @@ form {
 
 /* Declare heights because of positioning of img element */
 .carousel .item {
-  height: 525px;
+  height: 450px;
   background-color: #777;
 }
 
@@ -93,7 +98,7 @@ form {
   top: 0;
   left: 0;
   min-width: 100%;
-  height: 525px;
+  height: 450px;
 }
 
 .bg-img {
@@ -157,14 +162,79 @@ form {
   letter-spacing: -1px;
 }
 
+/* SLIDE CREATION
+------------------------- */
+#add-column, #add-row {
+  position: relative;
+  font-size: 450%;
+  opacity: 0.1;
+  position: absolute;
+  transition: opacity 0.3s;
+  transition: color 0.3s;
+}
+
+#add-column:hover, #add-row:hover {
+  cursor: pointer;
+  color: #40cb90;
+  opacity: 1;
+}
+
+#add-column {
+  margin-right: 37.5px;
+  right: 0;
+  top: 45%;
+}
+
+#add-row {
+  left: 45%;
+  margin-left: 20px;
+  top: 85%;
+}
+
+.publish-slides,
+button.at-btn {
+  background: #40cb90;
+  border: none;
+  font-size: 1.4em;
+  margin-top: 15px;
+  padding-left: 20px;
+  padding-right: 20px;
+}
+
+.publish-slides:hover,
+button.at-btn:hover {
+  background: #53D09B;
+  color: white;
+}
+
+button.at-btn {
+  width: 100px;
+  color: white;
+}
+
+button.at-btn:focus {
+  outline: none;
+  background: #53D09B;
+  color: white;
+  border: 1px solid white;
+}
+
+div.at-signin-link p {
+  margin-top: 20px;
+  text-align: left;
+}
+
 /* RESPONSIVE CSS
 -------------------------------------------------- */
 @media (min-width: 300px) {
   .carousel-caption h1 {
     font-family: 'Open Sans';
-    font-size: 2.5em;
+    font-size: 2.2em;
     font-weight: 500;
     margin-bottom: 40px;
+  }
+  .carousel-caption {
+    margin-bottom: 60px;
   }
   .navbar-toggle {
     border: 1px solid white !important;
@@ -193,7 +263,7 @@ form {
   }
   /* Bump up size of carousel content */
   .carousel-caption p {
-    margin-bottom: 20px;
+    margin-bottom: -20px;
     font-size: 21px;
     line-height: 1.4;
   }
