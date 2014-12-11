@@ -6,6 +6,49 @@ Session.setDefault('colPosition', 0);
 Session.setDefault('rowPosition', 0);
 
 /**
+ * UI Body Event Listeners
+ */
+var uiBodyEvents = Tracker.autorun(function() {
+  UI.body.events({
+    'keydown': function(evt) {
+      var slide;
+      var markDown;
+      // Right Arrow Pressed
+      if(evt.which === 39 && Session.get('colPosition') < (getColumnsCount() - 1)) {
+        // Grab Markdown Text
+        markDown = $('.markDownText').val();
+        
+        saveSlide(Session.get('rowPosition'), Session.get('colPosition'), markDown, function(err, data) {
+          if(err) { console.log(err); }
+
+          Session.set('colPosition', Session.get('colPosition') + 1);
+          slide = getSlideText(Session.get('rowPosition'), Session.get('colPosition'));
+          // Render Markdown
+          console.log("Moved right:", Session.get('colPosition'), slide);
+          $('.markDownText').val(slide);
+        });
+
+      }
+      // Left Arrow Pressed
+      else if(evt.which === 37 && Session.get('colPosition') > 0) {
+        // Grab Markdown
+        markDown = $('.markDownText').val();
+
+        saveSlide(Session.get('rowPosition'), Session.get('colPosition'), markDown, function(err, data) {
+          if(err) { console.log(err); }
+
+          Session.set('colPosition', Session.get('colPosition') - 1);
+          slide = getSlideText(Session.get('rowPosition'), Session.get('colPosition'));
+
+          console.log("Moved left:", Session.get('colPosition'), slide);
+          $('.markDownText').val(slide);
+        });
+      }
+    }
+  });  
+});
+
+/**
  * Markdown Form Helpers
  */
 
@@ -53,12 +96,17 @@ Template.createPresentation.events({
       columnId = data;
 
       // Updates Current Slide.slides with New Column
-      Meteor.call('updateSlideDeck', Session.get('currentSlideDeck'), {$push: {'columnIds': columnId}});
+      Meteor.call('updateSlideDeck', Session.get('currentSlideDeck'), {$push: {'columnIds': columnId}}, function(err, data) {
+        if(err) { console.log(err); }
+
+        // Increments colPosition
+        Session.set('colPosition', getColumnsCount() - 1);
+        Session.set('rowPosition', 0);
+        
+      });
     });
 
-    // Increments colPosition
-    Session.set('colPosition', (Session.get('colPosition') + 1));
-    Session.set('rowPosition', 0);
+    template.find('.markDownText').value = '';
   },
 
   'click .newRow': function(evt, template) {
@@ -74,23 +122,63 @@ Template.createPresentation.events({
     // Creates empty string for new row
     saveSlide(Session.get('rowPosition'), Session.get('colPosition'), '');
 
-    //TODO INCREMENT LAST INDEX
+    // Increments lastIndex position
+    updateLastIndex(Session.get('rowPosition'), Session.get('colPosition'));
+
+    // Clear textarea
     template.find('.markDownText').value = '';
   }
+  
 });
 
 /**
  * Helper Functions
  */
 
-function saveSlide(row, column, text) {
-  var slidesIndexObject = {};
+function saveSlide(row, column, text, callback) {
+  var slidesMarkdown = {};
   var slideDeckObj = SlideDecks.findOne({_id: Session.get('currentSlideDeck')});
   var columnId = slideDeckObj.columnIds[column];
   
-  slidesIndexObject['slides.' + row] = text;
-  Meteor.call('updateSlide', columnId, {$set: slidesIndexObject});
+  slidesMarkdown['slides.' + row] = text;
+  Meteor.call('updateSlideColumn', columnId, {$set: slidesMarkdown}, callback);
 }
+
+function updateLastIndex(rowIndex, columnIndex) {
+  var slideDeckObj = SlideDecks.findOne({_id: Session.get('currentSlideDeck')});
+  var columnId = slideDeckObj.columnIds[columnIndex];
+
+  Meteor.call('updateSlideColumn', columnId, {$set: {"lastIndex": rowIndex}});
+}
+
+function getSlideText(rowIndex, columnIndex) {
+  var slideDeckObj = SlideDecks.findOne({_id: Session.get('currentSlideDeck')});
+  var columnId = slideDeckObj.columnIds[columnIndex];
+  
+  var slideColumnObject = SlideColumns.findOne({_id: columnId});
+
+  if(slideColumnObject) {
+    //console.log(slideColumnObject);
+    return slideColumnObject.slides[slideColumnObject.lastIndex];
+  }
+}
+
+function getColumnsCount() {
+  var colCount = SlideDecks.findOne({_id: Session.get('currentSlideDeck')});
+
+  return colCount.columnIds.length;
+}
+
+function getRowsCount() {
+
+}
+
+
+
+
+
+
+
 
 
 

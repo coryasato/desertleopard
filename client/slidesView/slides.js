@@ -191,15 +191,15 @@ Template.slides.events({
 
 var uiBodyKeyBindingHandler = Tracker.autorun(function() {
   if ( isPresentor() ) {
-    UI.body.events({
-      'keydown': function(e){
-        if ( e.which === 39 ) { // right arrow key
-          next();
-        } else if ( e.which === 37 ) { // left arrow key
-          prev();
-        }
-      }
-    });
+    // UI.body.events({
+    //   'keydown': function(e){
+    //     if ( e.which === 39 ) { // right arrow key
+    //       next();
+    //     } else if ( e.which === 37 ) { // left arrow key
+    //       prev();
+    //     }
+    //   }
+    // });
     // uiBodyKeyBindingHandler.stop();
   }
 });

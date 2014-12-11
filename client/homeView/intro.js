@@ -13,7 +13,7 @@ Template.intro.events({
       slideColumnId = data;
 
       // Create Slide Deck
-      Meteor.call('insertSlideDeck', {'owner': Meteor.userId(), 'columnIds': [slideColumnId], 'title': 'TEMP'}, function(err, data) {
+      Meteor.call('insertSlideDeck', {'owner': Meteor.userId(), 'columnIds': [slideColumnId], 'presentationTitle': 'TEMP'}, function(err, data) {
         if(err) { console.log(err); }
 
         // Store SlideDeck session_id
