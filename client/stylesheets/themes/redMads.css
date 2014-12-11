@@ -161,9 +161,17 @@ form {
 ------------------------- */
 #add-column, #add-row {
   position: relative;
-  font-size: 500%;
-  opacity: 0.25;
+  font-size: 450%;
+  opacity: 0.1;
   position: absolute;
+  transition: opacity 0.3s;
+  transition: color 0.3s;
+}
+
+#add-column:hover, #add-row:hover {
+  cursor: pointer;
+  color: #40cb90;
+  opacity: 1;
 }
 
 #add-column {
@@ -176,11 +184,6 @@ form {
   left: 45%;
   margin-left: 20px;
   top: 85%;
-}
-
-#add-column:hover, #add-row:hover {
-  cursor: pointer;
-  color: #40cb90;
 }
 
 #publish-slides {
