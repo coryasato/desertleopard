@@ -1,43 +1,25 @@
-<!-- <template name="savedPresentations">
-<div class="ui segment savedPresentations">
-<div class="ui divided list">
-<div class="item">
-<div class="right floated compact ui button">Review Presentation</div>
-<div class="right floated compact ui button">Begin Presentation</div>
-<div class="left content">
-<div class="header">Presentation Name 1</div>
-</div>
-</div>
-<div class="item">
-<div class="right floated compact ui button">View</div>
-<div class="content">
-<div class="header">Presentation Name 2</div>
-</div>
-</div>
-</div>
-</div>
-</template> -->
 
 <!-- add button to start new session. To view, just go to slides/route
   else, do sessions/route -->
 
   <template name="Presentations">
-    <div class="ui segment savedPresentations">
-      <div class="ui divided list">
-        <div class="panel panel-default">
-          {{#each decks}}
-          <div class="panel-body">
-            <div class="item">
-              <div class="content">
-                <div class="header" id="Title"> <h1>{{title}}</h1></div>
-              </div>
-              <div class="right floated compact btn btn-primary" id="reviewPresentation">Slide Viewer </div>
-              <div class="right floated compact btn btn-info " id="beginPresentation"> Begin Presentation</div>
-            </div>
-          </div>
+    <div id="presentation-list" class="container">
+      <div class="ui segment savedPresentations">
+        <div class="ui divided list">
 
-          {{/each}}
-        </div>
+            {{#each decks}}
+            <div class="panel-body">
+              <div class="item">
+                <div class="content">
+                  <div class="header" id="Title"> <h1>{{title}}</h1></div>
+                </div>
+                <div class="right floated compact btn btn-primary" id="reviewPresentation">Slide Viewer </div>
+                <div class="right floated compact btn btn-info " id="beginPresentation"> Begin Presentation</div>
+              </div>
+            </div>
+            {{/each}}
+
+          </div>
       </div>
     </div>
   </template> 
