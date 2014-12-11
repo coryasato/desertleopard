@@ -9,13 +9,14 @@ Session.setDefault('rowPosition', 0);
  * UI Body Event Listeners
  */
 var uiBodyEvents = Tracker.autorun(function() {
+  
   UI.body.events({
     'keydown': function(evt) {
       var slide;
       var markDown;
       // Right Arrow Pressed
-      if(evt.which === 39 && Session.get('colPosition') < (getColumnsCount() - 1)) {
-        // Grab Markdown Text
+      if(evt.shiftKey && evt.which === 39 && Session.get('colPosition') < (getColumnsCount() - 1)) {
+        // Get Markdown
         markDown = $('.markDownText').val();
         
         saveSlide(Session.get('rowPosition'), Session.get('colPosition'), markDown, function(err, data) {
@@ -24,14 +25,14 @@ var uiBodyEvents = Tracker.autorun(function() {
           Session.set('colPosition', Session.get('colPosition') + 1);
           slide = getSlideText(Session.get('rowPosition'), Session.get('colPosition'));
           // Render Markdown
-          console.log("Moved right:", Session.get('colPosition'), slide);
+          console.log("Moved right | Column:", Session.get('colPosition'), slide);
           $('.markDownText').val(slide);
         });
 
       }
       // Left Arrow Pressed
-      else if(evt.which === 37 && Session.get('colPosition') > 0) {
-        // Grab Markdown
+      else if(evt.shiftKey && evt.which === 37 && Session.get('colPosition') > 0) {
+        // Get Markdown
         markDown = $('.markDownText').val();
 
         saveSlide(Session.get('rowPosition'), Session.get('colPosition'), markDown, function(err, data) {
@@ -40,12 +41,50 @@ var uiBodyEvents = Tracker.autorun(function() {
           Session.set('colPosition', Session.get('colPosition') - 1);
           slide = getSlideText(Session.get('rowPosition'), Session.get('colPosition'));
 
-          console.log("Moved left:", Session.get('colPosition'), slide);
+          console.log("Moved left | Column:", Session.get('colPosition'), slide);
           $('.markDownText').val(slide);
         });
       }
+      // Down Arrow Pressed
+      else if(evt.shiftKey && evt.which === 40 && Session.get('rowPosition') < getRowsCount() - 1){
+        // Get Markdown
+        markDown = $('.markDownText').val();
+
+        saveSlide(Session.get('rowPosition'), Session.get('colPosition'), markDown, function(err, data) {
+          if(err) { console.log(err); }
+
+          Session.set('rowPosition', Session.get('rowPosition') + 1);
+          slide = getSlideText(Session.get('rowPosition'), Session.get('colPosition'));
+
+          // Update lastIndex
+          updateLastIndex(Session.get('rowPosition'), Session.get('colPosition'), true);
+
+          console.log("Moved down | Row:", Session.get('rowPosition'), slide);
+          $('.markDownText').val(slide);
+        });
+      }
+      // Up Arrow Pressed
+      else if(evt.shiftKey && evt.which === 38 && Session.get('rowPosition') > 0){
+        // Get Markdown
+        markDown = $('.markDownText').val();
+
+        saveSlide(Session.get('rowPosition'), Session.get('colPosition'), markDown, function(err, data) {
+          if(err) { console.log(err); }
+
+          Session.set('rowPosition', Session.get('rowPosition') - 1);
+          slide = getSlideText(Session.get('rowPosition'), Session.get('colPosition'));
+
+          // Update lastIndex
+          updateLastIndex(Session.get('rowPosition'), Session.get('colPosition'), false);
+
+          console.log("Moved down | Row:", Session.get('rowPosition'), slide);
+          $('.markDownText').val(slide);
+        });
+
+      }
     }
-  });  
+  });
+  
 });
 
 /**
@@ -76,11 +115,12 @@ Template.createPresentation.events({
 
   'click .publishBtn': function(evt, template) {
     evt.preventDefault();
+    // Store Last Session Slide to DB
+    
     // Reset Default Positions on PUBLISH
     Session.set('colPosition', 0);
     Session.set('rowPosition', 0);
 
-    // Store Last Session Slide to DB
   },
 
   'click .newColumn': function(evt, template) {
@@ -123,7 +163,7 @@ Template.createPresentation.events({
     saveSlide(Session.get('rowPosition'), Session.get('colPosition'), '');
 
     // Increments lastIndex position
-    updateLastIndex(Session.get('rowPosition'), Session.get('colPosition'));
+    updateLastIndex(Session.get('rowPosition'), Session.get('colPosition'), true);
 
     // Clear textarea
     template.find('.markDownText').value = '';
@@ -144,23 +184,23 @@ function saveSlide(row, column, text, callback) {
   Meteor.call('updateSlideColumn', columnId, {$set: slidesMarkdown}, callback);
 }
 
-function updateLastIndex(rowIndex, columnIndex) {
+function updateLastIndex(rowIndex, columnIndex, increment) {
   var slideDeckObj = SlideDecks.findOne({_id: Session.get('currentSlideDeck')});
   var columnId = slideDeckObj.columnIds[columnIndex];
 
-  Meteor.call('updateSlideColumn', columnId, {$set: {"lastIndex": rowIndex}});
+  if(increment) {
+    Meteor.call('updateSlideColumn', columnId, {$inc: {"lastIndex": 1}});
+  } else {
+    Meteor.call('updateSlideColumn', columnId, {$inc: {"lastIndex": -1}});
+  }
 }
 
 function getSlideText(rowIndex, columnIndex) {
   var slideDeckObj = SlideDecks.findOne({_id: Session.get('currentSlideDeck')});
-  var columnId = slideDeckObj.columnIds[columnIndex];
-  
+  var columnId = slideDeckObj.columnIds[columnIndex];  
   var slideColumnObject = SlideColumns.findOne({_id: columnId});
 
-  if(slideColumnObject) {
-    //console.log(slideColumnObject);
-    return slideColumnObject.slides[slideColumnObject.lastIndex];
-  }
+  return slideColumnObject.slides[slideColumnObject.lastIndex];
 }
 
 function getColumnsCount() {
@@ -170,7 +210,11 @@ function getColumnsCount() {
 }
 
 function getRowsCount() {
+  var slideDeckObj = SlideDecks.findOne({_id: Session.get('currentSlideDeck')});
+  var columnId = slideDeckObj.columnIds[Session.get('colPosition')];
+  var currentColumn = SlideColumns.findOne({_id: columnId});
 
+  return currentColumn.slides.length;
 }
 
 
