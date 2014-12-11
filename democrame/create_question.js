@@ -3,7 +3,11 @@ if (Meteor.isClient) {
 Template.createQuestion.helpers({
   questions : function () {
     return Questions.find();
+  },
+  getSlideDeckId: function(){
+    return Session.get('currentSlideDeck');
   }
+
 });
 
 Template.results.helpers({
@@ -13,7 +17,6 @@ Template.results.helpers({
   // },
   countVotes: function(theQuestion){
     var theCounts = Votes.find({'question_id':theQuestion});
-    console.log('Counts: ', theCounts, ' with this Qid: ' + theQuestion);
     return theCounts.count();
   }
 });
@@ -24,7 +27,7 @@ Template.createQuestion.events({
      var questionBody = {
           'text': template.find('#theText').value
         }
-    Meteor.call('createQuestion', questionBody, function(err) {
+    Meteor.call('createQuestion', questionBody, Session.get('currentSlideDeck'), function(err) {
       if(err) { console.log(err); }
     }); 
   },
