@@ -53,7 +53,6 @@ Template.createQuestion.events({
       }
     });
   }  
-
 });
 
 }
