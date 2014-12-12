@@ -7,6 +7,8 @@ Template.slides.helpers({
     return Meteor.getSlideText(Session.get('rowPosition'), Session.get('colPosition'), false);
   }
 });
+
+
   
 /**
  * Slide Events
@@ -18,13 +20,6 @@ Template.slides.events({
   }
 });
 
-Template.slides.famousEvents({
-  'keypress': function(evt, fview) {
-    if(evt.shiftKey && evt.which === 39) {
-
-    }
-  }
-});
 
 var handle = Tracker.autorun(function() {
   if(Session.get('isViewing')) {
