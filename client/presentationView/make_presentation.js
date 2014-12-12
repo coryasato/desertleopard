@@ -83,7 +83,7 @@ Template.createPresentation.helpers({
     return Session.get('rowPosition') + 1;
   },
   markDown: function() {
-    return getSlideText(Session.get('rowPosition'), Session.get('colPosition'), false);
+    return Meteor.getSlideText(Session.get('rowPosition'), Session.get('colPosition'), false);
   }
 });
 

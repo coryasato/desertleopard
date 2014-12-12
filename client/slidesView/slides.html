@@ -1,25 +1,12 @@
 <template name="slides">
 
-  <div id="counter" class="ui huge label">
-    {{_page}}/{{_slideLength}}
-  </div>
   <div class="slide">
-    
   {{#markdown}}
-    {{markDownSource _page}}
+  {{markDownSource}}
   {{/markdown}}
   </div>
-  <div id="qrcode"></div>
-  {{#if isPresentor}}
-  <div id="#controller">
-    <div class="ui button" id="prev">prev</div>
-    <div class="ui button" id="next">next</div>
-  </div>
-  {{/if}}
-  <div class="ui button" id="poll">quickPoll</div>
-  
-  <div class="ui button" id="thumbcheck">
-    <i class="thumbs up icon"></i>
-  </div>
+
+<!--   <button class='qrCodeShow'>SHOW IT</button>
+  <div id="qrcode"></div> -->
   
 </template>
