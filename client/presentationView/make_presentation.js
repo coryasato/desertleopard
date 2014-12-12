@@ -23,6 +23,12 @@ var uiBodyEvents = Tracker.autorun(function() {
           if(err) { console.log(err); }
 
           slide = Meteor.moveRight();
+
+          $('body').addClass('animated bounceInRight');
+          Meteor.setTimeout(function() {
+            $('body').removeClass('animated bounceInRight');
+          }, 500);
+
           $('.markDownText').val(slide);
         });
 
@@ -36,6 +42,12 @@ var uiBodyEvents = Tracker.autorun(function() {
           if(err) { console.log(err); }
 
           slide = Meteor.moveLeft();
+
+          $('body').addClass('animated bounceInLeft');
+          Meteor.setTimeout(function() {
+            $('body').removeClass('animated bounceInLeft');
+          }, 500);
+
           $('.markDownText').val(slide);
         });
       }
@@ -48,7 +60,12 @@ var uiBodyEvents = Tracker.autorun(function() {
           if(err) { console.log(err); }
 
           slide = Meteor.moveDown();
-          //console.log("Moved down | Row:", Session.get('rowPosition'), slide);
+          
+          $('body').addClass('animated bounceInUp');
+          Meteor.setTimeout(function() {
+            $('body').removeClass('animated bounceInUp');
+          }, 500);
+          
           $('.markDownText').val(slide);
         });
       }
@@ -61,7 +78,12 @@ var uiBodyEvents = Tracker.autorun(function() {
           if(err) { console.log(err); }
 
           slide = Meteor.moveUp();
-          //console.log("Moved up | Row:", Session.get('rowPosition'), slide);
+          
+          $('body').addClass('animated bounceInDown');
+          Meteor.setTimeout(function() {
+            $('body').removeClass('animated bounceInDown');
+          }, 500);
+
           $('.markDownText').val(slide);
         });
 
