@@ -2,10 +2,21 @@ if (Meteor.isClient) {
 
 Template.createQuestion.helpers({
   questions : function () {
-    return Questions.find();
+    return Questions.find({}, {sort: {createdAt:-1}});
   },
   getSlideDeckId: function(){
     return Session.get('_sd_id');
+  }
+
+});
+
+Template.question.helpers({
+ 
+  getTheTime: function(theQuestion){
+    var theCounts = Questions.find({'_id':theQuestion});
+    var dateToPass;
+     theCounts.forEach(function (post) { dateToPass = post.createdAt });
+    return moment(dateToPass).fromNow();
   }
 
 });
@@ -19,6 +30,7 @@ Template.results.helpers({
     var theCounts = Votes.find({'question_id':theQuestion});
     return theCounts.count();
   }
+
 });
 
 Template.createQuestion.events({
@@ -27,7 +39,7 @@ Template.createQuestion.events({
      var questionBody = {
           'text': template.find('#theText').value
         }
-    Meteor.call('createQuestion', questionBody, Session.get('currentSlideDeck'), function(err) {
+    Meteor.call('createQuestion', questionBody, function(err) {
       if(err) { console.log(err); }
     }); 
   },
@@ -62,5 +74,12 @@ Template.createQuestion.events({
   //   });
   // }  
 });
+
+  // Template.home.rendered = function(){
+  //     var element = $("#wrapper");
+  //     if(!element.hasClass("app")){
+  //         element.addClass("app"); 
+  //     }
+  // }
 
 }
