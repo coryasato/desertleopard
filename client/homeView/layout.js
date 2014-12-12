@@ -20,6 +20,9 @@ Template.navigation.events({
         Session.set('currentSlideDeck', data);
       });
     });
+
+    Session.set('rowPosition', 0);
+    Session.set('colPosition', 0);
     
     Router.go('/create');
   }

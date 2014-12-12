@@ -4,7 +4,7 @@
 
 Template.Presentations.helpers({
   decks : function () {
-    return SlideDecks.find({owner:Meteor.userId()});
+    return SlideDecks.find({ owner:Meteor.userId() });
   }
 });
 
@@ -20,8 +20,8 @@ Template.Presentations.events({
   },
   'click #reviewPresentation': function(evt, template) {
     event.preventDefault();
-    var presentation_id = this._id;
-
-    Router.go('/slides/' + presentation_id); 
+    
+    Session.set('currentSlideDeck', this._id);
+    Router.go('/create');
   }
 });

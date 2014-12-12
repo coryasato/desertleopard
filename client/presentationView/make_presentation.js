@@ -102,6 +102,9 @@ Template.createPresentation.helpers({
   },
   rowPosition: function() {
     return Session.get('rowPosition') + 1;
+  },
+  markDown: function() {
+    return getSlideText(Session.get('rowPosition'), Session.get('colPosition'), false);
   }
 });
 
