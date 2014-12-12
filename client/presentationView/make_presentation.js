@@ -5,30 +5,24 @@
 Session.setDefault('colPosition', 0);
 Session.setDefault('rowPosition', 0);
 
+
 /**
  * UI Body Event Listeners
  */
 var uiBodyEvents = Tracker.autorun(function() {
-  
   UI.body.events({
     'keydown': function(evt) {
       var slide;
       var markDown;
       // Right Arrow Pressed
-      if(evt.shiftKey && evt.which === 39 && Session.get('colPosition') < (getColumnsCount() - 1)) {
+      if(evt.shiftKey && evt.which === 39 && Session.get('colPosition') < (Meteor.getColumnsCount() - 1)) {
         // Get Markdown
         markDown = $('.markDownText').val();
         
         saveSlide(Session.get('rowPosition'), Session.get('colPosition'), markDown, function(err, data) {
           if(err) { console.log(err); }
 
-          Session.set('colPosition', Session.get('colPosition') + 1);
-          slide = getSlideText(null, Session.get('colPosition'), true);
-          //console.log("Moved right | Column:", Session.get('colPosition'), slide);
-
-          // Sets Row Position to New Columns Last Index Property
-          Session.set('rowPosition', getLastIndex(Session.get('colPosition')));
-          // Render Markdown
+          slide = Meteor.moveRight();
           $('.markDownText').val(slide);
         });
 
@@ -41,29 +35,19 @@ var uiBodyEvents = Tracker.autorun(function() {
         saveSlide(Session.get('rowPosition'), Session.get('colPosition'), markDown, function(err, data) {
           if(err) { console.log(err); }
 
-          Session.set('colPosition', Session.get('colPosition') - 1);
-          slide = getSlideText(null, Session.get('colPosition'), true);
-
-          //console.log("Moved left | Column:", Session.get('colPosition'), slide);
-
-          Session.set('rowPosition', getLastIndex(Session.get('colPosition')));
+          slide = Meteor.moveLeft();
           $('.markDownText').val(slide);
         });
       }
       // Down Arrow Pressed
-      else if(evt.shiftKey && evt.which === 40 && Session.get('rowPosition') < getRowsCount() - 1){
+      else if(evt.shiftKey && evt.which === 40 && Session.get('rowPosition') < Meteor.getRowsCount() - 1){
         // Get Markdown
         markDown = $('.markDownText').val();
 
         saveSlide(Session.get('rowPosition'), Session.get('colPosition'), markDown, function(err, data) {
           if(err) { console.log(err); }
 
-          Session.set('rowPosition', Session.get('rowPosition') + 1);
-          slide = getSlideText(Session.get('rowPosition'), Session.get('colPosition'), false);
-
-          // Update lastIndex
-          updateLastIndex(Session.get('rowPosition'), Session.get('colPosition'));
-
+          slide = Meteor.moveDown();
           //console.log("Moved down | Row:", Session.get('rowPosition'), slide);
           $('.markDownText').val(slide);
         });
@@ -76,12 +60,7 @@ var uiBodyEvents = Tracker.autorun(function() {
         saveSlide(Session.get('rowPosition'), Session.get('colPosition'), markDown, function(err, data) {
           if(err) { console.log(err); }
 
-          Session.set('rowPosition', Session.get('rowPosition') - 1);
-          slide = getSlideText((Session.get('rowPosition')), Session.get('colPosition'), false);
-
-          // Update lastIndex
-          updateLastIndex(Session.get('rowPosition'), Session.get('colPosition'));
-
+          slide = Meteor.moveUp();
           //console.log("Moved up | Row:", Session.get('rowPosition'), slide);
           $('.markDownText').val(slide);
         });
@@ -141,7 +120,7 @@ Template.createPresentation.events({
         if(err) { console.log(err); }
 
         // Increments colPosition
-        Session.set('colPosition', getColumnsCount() - 1);
+        Session.set('colPosition', Meteor.getColumnsCount() - 1);
         Session.set('rowPosition', 0);
         
       });
@@ -164,7 +143,7 @@ Template.createPresentation.events({
     saveSlide(Session.get('rowPosition'), Session.get('colPosition'), '');
 
     // Increments lastIndex position
-    updateLastIndex(Session.get('rowPosition'), Session.get('colPosition'));
+    Meteor.updateLastIndex(Session.get('rowPosition'), Session.get('colPosition'));
 
     // Clear textarea
     template.find('.markDownText').value = '';
@@ -185,45 +164,6 @@ function saveSlide(row, column, text, callback) {
   Meteor.call('updateSlideColumn', columnId, {$set: slidesMarkdown}, callback);
 }
 
-function updateLastIndex(rowIndex, columnIndex) {
-  var slideDeckObj = SlideDecks.findOne({_id: Session.get('currentSlideDeck')});
-  var columnId = slideDeckObj.columnIds[columnIndex];
-
-  Meteor.call('updateSlideColumn', columnId, {$set: {"lastIndex": rowIndex}});  
-}
-
-function getLastIndex(columnIndex) {
-  var slideDeckObj = SlideDecks.findOne({_id: Session.get('currentSlideDeck')});
-  var columnId = slideDeckObj.columnIds[columnIndex];
-  var slideColumnObject = SlideColumns.findOne({_id: columnId});
-  return slideColumnObject.lastIndex;
-}
-
-function getSlideText(rowIndex, columnIndex, columnMove) {
-  var slideDeckObj = SlideDecks.findOne({_id: Session.get('currentSlideDeck')});
-  var columnId = slideDeckObj.columnIds[columnIndex];  
-  var slideColumnObject = SlideColumns.findOne({_id: columnId});
-
-  if (columnMove) {
-    return slideColumnObject.slides[slideColumnObject.lastIndex];
-  } else {
-    return slideColumnObject.slides[Session.get('rowPosition')];
-  }
-}
-
-function getColumnsCount() {
-  var colCount = SlideDecks.findOne({_id: Session.get('currentSlideDeck')});
-
-  return colCount.columnIds.length;
-}
-
-function getRowsCount() {
-  var slideDeckObj = SlideDecks.findOne({_id: Session.get('currentSlideDeck')});
-  var columnId = slideDeckObj.columnIds[Session.get('colPosition')];
-  var currentColumn = SlideColumns.findOne({_id: columnId});
-
-  return currentColumn.slides.length;
-}
 
 
 
