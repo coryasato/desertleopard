@@ -23,9 +23,11 @@ var uiBodyEvents = Tracker.autorun(function() {
           if(err) { console.log(err); }
 
           Session.set('colPosition', Session.get('colPosition') + 1);
-          slide = getSlideText(Session.get('rowPosition'), Session.get('colPosition'));
+          slide = getSlideText(null, Session.get('colPosition'), true);
           // Render Markdown
           console.log("Moved right | Column:", Session.get('colPosition'), slide);
+
+          Session.set('rowPosition', getLastIndex(Session.get('colPosition')));
           $('.markDownText').val(slide);
         });
 
@@ -39,9 +41,11 @@ var uiBodyEvents = Tracker.autorun(function() {
           if(err) { console.log(err); }
 
           Session.set('colPosition', Session.get('colPosition') - 1);
-          slide = getSlideText(Session.get('rowPosition'), Session.get('colPosition'));
+          slide = getSlideText(null, Session.get('colPosition'), true);
 
           console.log("Moved left | Column:", Session.get('colPosition'), slide);
+
+          Session.set('rowPosition', getLastIndex(Session.get('colPosition')));
           $('.markDownText').val(slide);
         });
       }
@@ -54,10 +58,10 @@ var uiBodyEvents = Tracker.autorun(function() {
           if(err) { console.log(err); }
 
           Session.set('rowPosition', Session.get('rowPosition') + 1);
-          slide = getSlideText(Session.get('rowPosition'), Session.get('colPosition'));
+          slide = getSlideText(Session.get('rowPosition'), Session.get('colPosition'), false);
 
           // Update lastIndex
-          updateLastIndex(Session.get('rowPosition'), Session.get('colPosition'), true);
+          updateLastIndex(Session.get('rowPosition'), Session.get('colPosition'));
 
           console.log("Moved down | Row:", Session.get('rowPosition'), slide);
           $('.markDownText').val(slide);
@@ -72,12 +76,12 @@ var uiBodyEvents = Tracker.autorun(function() {
           if(err) { console.log(err); }
 
           Session.set('rowPosition', Session.get('rowPosition') - 1);
-          slide = getSlideText(Session.get('rowPosition'), Session.get('colPosition'));
+          slide = getSlideText((Session.get('rowPosition')), Session.get('colPosition'), false);
 
           // Update lastIndex
-          updateLastIndex(Session.get('rowPosition'), Session.get('colPosition'), false);
+          updateLastIndex(Session.get('rowPosition'), Session.get('colPosition'));
 
-          console.log("Moved down | Row:", Session.get('rowPosition'), slide);
+          console.log("Moved up | Row:", Session.get('rowPosition'), slide);
           $('.markDownText').val(slide);
         });
 
@@ -163,7 +167,7 @@ Template.createPresentation.events({
     saveSlide(Session.get('rowPosition'), Session.get('colPosition'), '');
 
     // Increments lastIndex position
-    updateLastIndex(Session.get('rowPosition'), Session.get('colPosition'), true);
+    updateLastIndex(Session.get('rowPosition'), Session.get('colPosition'));
 
     // Clear textarea
     template.find('.markDownText').value = '';
@@ -184,23 +188,30 @@ function saveSlide(row, column, text, callback) {
   Meteor.call('updateSlideColumn', columnId, {$set: slidesMarkdown}, callback);
 }
 
-function updateLastIndex(rowIndex, columnIndex, increment) {
+function updateLastIndex(rowIndex, columnIndex) {
   var slideDeckObj = SlideDecks.findOne({_id: Session.get('currentSlideDeck')});
   var columnId = slideDeckObj.columnIds[columnIndex];
 
-  if(increment) {
-    Meteor.call('updateSlideColumn', columnId, {$inc: {"lastIndex": 1}});
-  } else {
-    Meteor.call('updateSlideColumn', columnId, {$inc: {"lastIndex": -1}});
-  }
+  Meteor.call('updateSlideColumn', columnId, {$set: {"lastIndex": rowIndex}});  
 }
 
-function getSlideText(rowIndex, columnIndex) {
+function getLastIndex(columnIndex) {
+  var slideDeckObj = SlideDecks.findOne({_id: Session.get('currentSlideDeck')});
+  var columnId = slideDeckObj.columnIds[columnIndex];
+  var slideColumnObject = SlideColumns.findOne({_id: columnId});
+  return slideColumnObject.lastIndex;
+}
+
+function getSlideText(rowIndex, columnIndex, columnMove) {
   var slideDeckObj = SlideDecks.findOne({_id: Session.get('currentSlideDeck')});
   var columnId = slideDeckObj.columnIds[columnIndex];  
   var slideColumnObject = SlideColumns.findOne({_id: columnId});
 
-  return slideColumnObject.slides[slideColumnObject.lastIndex];
+  if (columnMove) {
+    return slideColumnObject.slides[slideColumnObject.lastIndex];
+  } else {
+    return slideColumnObject.slides[Session.get('rowPosition')];
+  }
 }
 
 function getColumnsCount() {
