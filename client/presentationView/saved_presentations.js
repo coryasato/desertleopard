@@ -15,6 +15,10 @@ Template.Presentations.events({
     Session.set('currentSlideDeck', this._id);
     Session.set('rowPosition', 0);
     Session.set('colPosition', 0);
+
+    // Set Coordinates to 0, 0
+    Meteor.call('updateSlideDeck', this._id, {$set: {'currentSlide': [Session.get('rowPosition'), Session.get('colPosition')]}}); 
+
     Router.go('/sessions/' + this._id);
   },
   'click #reviewPresentation': function(evt, template) {
