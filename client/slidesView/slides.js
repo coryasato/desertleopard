@@ -11,7 +11,7 @@
 
 Template.slides.helpers({
   markDownSource: function() {
-    
+    return Meteor.getSlideText(Session.get('rowPosition'), Session.get('colPosition'), false);
   }
 });
   
@@ -20,40 +20,22 @@ Template.slides.helpers({
  */
 
 Template.slides.events({
-  'click #next': function () {
-    //next();
-  },
-  'click #prev': function () {
-    //prev();
-  }
+  
 });
 
-// var fetchDep = new Tracker.Dependency;
+var fetchDep = new Tracker.Dependency;
 
-// var handle = Tracker.autorun(function() {
-//   var foundSessionOrNonSession = true;
-//   if ( Session.get('isSession') ) {
-//     foundSessionOrNonSession = PresentSessions.findOne({_id:Session.get('_ps_id')});
-//     if ( foundSessionOrNonSession ) {
-//       Session.set('_sd_id', foundSessionOrNonSession.slideDeck_id);
-//       Session.set('_presenter_id', foundSessionOrNonSession.presenter_id);
-//       Session.set('_page', foundSessionOrNonSession.page);
-//     }
-//   }
+var handle = Tracker.autorun(function() {
 
-//   if ( foundSessionOrNonSession ) {
-//     Meteor.subscribe('slideDecks',{_id:Session.get('_sd_id')});
-
-//     var foundSlideDeck = SlideDecks.findOne({_id:Session.get('_sd_id')});
-//     if ( foundSlideDeck ) {
-//       Session.set('_title', foundSlideDeck.title);
-//       _mdSlides = foundSlideDeck.mdSlides;
-//       Session.set('_slideLength', _mdSlides.length);
-//       fetchDep.changed();
-//       // handle.stop();
-//     }
-//   }
-// });
+  if(Session.get('isViewing')) {
+    var slideDeck = SlideDecks.findOne({_id:Session.get('sd_id')});
+    if ( slideDeck ) {
+      Session.set('rowPosition', slideDeck.currentSlide[0]);
+      Session.set('colPosition', slideDeck.currentSlide[1]);
+    }
+  } 
+  
+});
 
 // var validatePageNum = function(page) {
 //   if ( page < 1 ) {
@@ -72,29 +54,6 @@ Template.slides.events({
 //   }
 //   return true;
 // };
-
-/**
- * Slide Helpers
- */
-
-Template.slides.helpers({
-  markDownSource: function() {
-    console.log(Session.get('currentSlideDeck'));
-  }
-});
-  
-/**
- * Slide Events
- */
-
-Template.slides.events({
-  'click #next': function () {
-    next();
-  },
-  'click #prev': function () {
-    prev();
-  }
-});
 
 
 // var goPage = function(pg) {

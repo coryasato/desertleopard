@@ -13,7 +13,9 @@ Template.Presentations.events({
     event.preventDefault();
 
     Session.set('currentSlideDeck', this._id);
-    Router.go('/sessions');
+    Session.set('rowPosition', 0);
+    Session.set('colPosition', 0);
+    Router.go('/sessions/' + this._id);
   },
   'click #reviewPresentation': function(evt, template) {
     event.preventDefault();
