@@ -164,8 +164,19 @@ form {
 
 /* SLIDE CREATION
 ------------------------- */
+#row-column-positions {
+  float: right;
+  text-align: right;
+  margin-right: 20px;
+}
+
+#title-input-field {
+  width: 33%;
+}
+
 #slide-creator {
   display: block;
+  margin-top: 30px;
 }
 
 #markdown-input-block {

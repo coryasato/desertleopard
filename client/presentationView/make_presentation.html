@@ -1,10 +1,19 @@
 <template name="createPresentation">
   <div class="container">
     <form id="mdRawForm" class="form">
-      <p class="columnPosition">Column Position: {{colPosition}}</p>
-      <p class="rowPosition">Row Position: {{rowPosition}}</p>
+      
+      <div id="row-column-positions">
+        <p class="columnPosition">Column Position: {{colPosition}}</p>
+        <p class="rowPosition">Row Position: {{rowPosition}}</p>
+      </div>
+
+      <div id="title-input">
+        <label for="exampleInputPassword1">Title</label>
+        <input id="title-input-field" class="form-control" type="text" placeholder="Give your presentation a title." />
+      </div>
+
       <div class="form-group">
-        
+
         <div id="slide-creator">
 
           <div id="markdown-input-block">
@@ -15,20 +24,7 @@
           <div id="markdown-preview-block">
             <label id="preview-label" for="exampleInputPassword1">Preview</label>
             <div id="markdown-preview">
-            
-              <!-- <h1>A First Level Header</h1>
-              <h2>A Second Level Header</h2>
-              <h3>A Third Level Header</h3>
-              <h4>A Fourth Level Header</h4>
-              <h5>A Fifth Level Header</h5>
-              <h6>A Sixed Level Header</h6>
-              <p>Now is the time for all good men to come to
-              the aid of their country. This is just a
-              regular paragraph.</p>
-              <p>The quick brown fox jumped over the lazy
-              dog&rsquo;s back.</p>
-              <hr /> -->
-
+              {{#markdown}}{{markDown}}{{/markdown}}
             </div>
           </div>
 
