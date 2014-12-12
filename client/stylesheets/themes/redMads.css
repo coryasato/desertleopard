@@ -164,18 +164,41 @@ form {
 
 /* SLIDE CREATION
 ------------------------- */
+#slide-creator {
+  display: block;
+}
+
+#markdown-input-block {
+float: left;
+  margin-right: 2%;
+  width: 48%;
+}
+
+#markdown-preview-block {
+  display: inline-block;
+  max-height: 415px;
+  width: 48%;
+}
+
+#markdown-preview {
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  height: 415px;
+  overflow: auto;
+}
+
 #add-column, #add-row {
-  position: relative;
   font-size: 450%;
   opacity: 0.1;
+  position: relative;
   position: absolute;
   transition: opacity 0.3s;
   transition: color 0.3s;
 }
 
 #add-column:hover, #add-row:hover {
-  cursor: pointer;
   color: #40cb90;
+  cursor: pointer;
   opacity: 1;
 }
 
