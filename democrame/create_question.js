@@ -2,16 +2,16 @@ if (Meteor.isClient) {
 
 Template.createQuestion.helpers({
   questions : function () {
-    if(Session.get('currentSlideDeck')){
-      return Questions.find({'slidedeck_id': Session.get('currentSlideDeck')}, {sort: {createdAt:-1}});
+    if(Session.get('questionsId')){
+      return Questions.find({'slidedeck_id': Session.get('questionsId')}, {sort: {createdAt:-1}});
     }else{
       Router.go('/list');
     }
   },
   getSlideDeckId: function(){
-    currentSlideDeckId = Session.get('currentSlideDeck');
-    console.log(currentSlideDeckId);
-    return currentSlideDeckId;
+    questionsId = Session.get('questionsId');
+    console.log(questionsId);
+    return questionsId;
   }
 
 });
@@ -34,7 +34,7 @@ Template.results.helpers({
   // },
   countVotes: function(theQuestion){
     var theCounts = Votes.find({'question_id':theQuestion});
-    return theCounts.count();
+    return theCounts.count()*10;
   }
 
 });
@@ -45,7 +45,7 @@ Template.createQuestion.events({
      var questionBody = {
           'text': template.find('#theText').value
         }
-    Meteor.call('createQuestion', questionBody, Session.get('currentSlideDeck'), function(err) {
+    Meteor.call('createQuestion', questionBody, Session.get('questionsId'), function(err) {
       if(err) { console.log(err); }
     }); 
        template.find('#theText').value = "";

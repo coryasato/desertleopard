@@ -29,9 +29,9 @@ Template.Presentations.events({
   },
   'click #viewModerator': function(evt, template){
     evt.preventDefault();
-    Session.set('currentSlideDeck', this._id);
-    console.log('This id is being set '+ this._id);
-    Router.go('/create_question');
+
+    console.log('This id is being set '+this._id);
+    Router.go('/questions/'+ this._id);
   }
 
 });
