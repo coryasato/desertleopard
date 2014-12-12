@@ -106,6 +106,11 @@ Template.createPresentation.helpers({
   },
   markDown: function() {
     return Meteor.getSlideText(Session.get('rowPosition'), Session.get('colPosition'), false);
+  },
+  liveMarkDown: function() {
+    var savedMarkDown = Meteor.getSlideText(Session.get('rowPosition'), Session.get('colPosition'), false);
+    Session.set('liveMarkDown', savedMarkDown);
+    return Session.get('liveMarkDown');
   }
 });
 
@@ -169,7 +174,14 @@ Template.createPresentation.events({
 
     // Clear textarea
     template.find('.markDownText').value = '';
-  }
+  },
+
+  'keydown .markDownText':function(evt, template) {
+      Tracker.autorun(function() {
+      Session.set('liveMarkDown', evt.target.value);
+        
+      });
+    }
   
 });
 
