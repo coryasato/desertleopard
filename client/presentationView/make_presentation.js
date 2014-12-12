@@ -24,10 +24,11 @@ var uiBodyEvents = Tracker.autorun(function() {
 
           Session.set('colPosition', Session.get('colPosition') + 1);
           slide = getSlideText(null, Session.get('colPosition'), true);
-          // Render Markdown
-          console.log("Moved right | Column:", Session.get('colPosition'), slide);
+          //console.log("Moved right | Column:", Session.get('colPosition'), slide);
 
+          // Sets Row Position to New Columns Last Index Property
           Session.set('rowPosition', getLastIndex(Session.get('colPosition')));
+          // Render Markdown
           $('.markDownText').val(slide);
         });
 
@@ -43,7 +44,7 @@ var uiBodyEvents = Tracker.autorun(function() {
           Session.set('colPosition', Session.get('colPosition') - 1);
           slide = getSlideText(null, Session.get('colPosition'), true);
 
-          console.log("Moved left | Column:", Session.get('colPosition'), slide);
+          //console.log("Moved left | Column:", Session.get('colPosition'), slide);
 
           Session.set('rowPosition', getLastIndex(Session.get('colPosition')));
           $('.markDownText').val(slide);
@@ -63,7 +64,7 @@ var uiBodyEvents = Tracker.autorun(function() {
           // Update lastIndex
           updateLastIndex(Session.get('rowPosition'), Session.get('colPosition'));
 
-          console.log("Moved down | Row:", Session.get('rowPosition'), slide);
+          //console.log("Moved down | Row:", Session.get('rowPosition'), slide);
           $('.markDownText').val(slide);
         });
       }
@@ -81,7 +82,7 @@ var uiBodyEvents = Tracker.autorun(function() {
           // Update lastIndex
           updateLastIndex(Session.get('rowPosition'), Session.get('colPosition'));
 
-          console.log("Moved up | Row:", Session.get('rowPosition'), slide);
+          //console.log("Moved up | Row:", Session.get('rowPosition'), slide);
           $('.markDownText').val(slide);
         });
 
@@ -107,24 +108,17 @@ Template.createPresentation.helpers({
 
 Template.createPresentation.events({
   'click .createBtn': function(evt, template) {
-    evt.preventDefault(); 
-    var mdRaw = 'Markdown';
-    var title = 'Title';
-
-    Meteor.call('createSlideDeck', {'mdRaw':mdRaw, 'title':title}, function(err) {
-      if(err) { console.log(err); }
-      Router.go('/list');
-    }); 
-  }, 
-
-  'click .publishBtn': function(evt, template) {
     evt.preventDefault();
-    // Store Last Session Slide to DB
-    
+    // PUBLISH | Store Last Slide
+    var markDown = $('.markDownText').val();
+
+    saveSlide(Session.get('rowPosition'), Session.get('colPosition'), markDown);
+
+    // Route to Presentation View
+    Router.go('/list');
     // Reset Default Positions on PUBLISH
     Session.set('colPosition', 0);
     Session.set('rowPosition', 0);
-
   },
 
   'click .newColumn': function(evt, template) {
