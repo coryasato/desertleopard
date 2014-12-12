@@ -7,9 +7,12 @@
       </div>
     </form>
     <h1>Questions</h1>
-    {{#each questions}}
+    {{#each questions }}
     {{> question}}
+    {{else}}
+    <h1 style="color:#bbb"> No questions yet! </h1>
     {{/each}}
+
   </div>
 </template>
 
@@ -23,7 +26,6 @@
           <div class="col-md-8">
             <h2 class="text">{{text}}</h2>
             <h4>{{getTheTime _id}} </h4>
-
           </div>
           <div class="col-md-3">
             {{> ratingBoard}}
