@@ -2,87 +2,84 @@
  * Set Session Globals
  */
 
-var fetchDep = new Tracker.Dependency;
 
-var handle = Tracker.autorun(function() {
-  var foundSessionOrNonSession = true;
-  if ( Session.get('isSession') ) {
-    foundSessionOrNonSession = PresentSessions.findOne({_id:Session.get('_ps_id')});
-    if ( foundSessionOrNonSession ) {
-      Session.set('_sd_id', foundSessionOrNonSession.slideDeck_id);
-      Session.set('_presenter_id', foundSessionOrNonSession.presenter_id);
-      Session.set('_page', foundSessionOrNonSession.page);
-    }
-  }
 
-  if ( foundSessionOrNonSession ) {
-    Meteor.subscribe('slideDecks',{_id:Session.get('_sd_id')});
-    Meteor.subscribe('questions',{_id:Session.get('_sd_id')});
-
-    var foundSlideDeck = SlideDecks.findOne({_id:Session.get('_sd_id')});
-    if ( foundSlideDeck ) {
-      Session.set('_title', foundSlideDeck.title);
-      _mdSlides = foundSlideDeck.mdSlides;
-      Session.set('_slideLength', _mdSlides.length);
-      _mdSlides.unshift('');
-      fetchDep.changed();
-      // handle.stop();
-    }
-  }
-
-});
-
-var validatePageNum = function(page) {
-  if ( page < 1 ) {
-    return false;
-  } else if ( page > Session.get('_slideLength') ) {
-    return false;
-  }
-  return true;
-};
-
-// Predicate Function
-var isPresentor = function() {
-  fetchDep.depend();
-  if ( Session.get('isSession') ) {
-    return Session.get('_presenter_id') === Meteor.userId();
-  }
-  return true;
-};
 
 /**
  * Slide Helpers
  */
 
 Template.slides.helpers({
-  isPresentor: isPresentor,
+  markDownSource: function() {
+    
+  }
+});
+  
+/**
+ * Slide Events
+ */
 
-  _ps_id: function() {
-    return Session.get('_ps_id');
+Template.slides.events({
+  'click #next': function () {
+    //next();
   },
-  _page: function() {
-    fetchDep.depend();
-    return Session.get("_page");
-  },
-  _slideLength: function() {
-    return Session.get('_slideLength');
-  },
-  markDownSource: function(n) {
-    fetchDep.depend();
-    if (_mdSlides) {
-      if ( n === 0 ) {
-        return '#'+Session.get("_title");
-      } else {
-        return _mdSlides[n];
-      }
-    }
-  },
-  opacity: function () {
-    return Session.get("opacity");
+  'click #prev': function () {
+    //prev();
+  }
+});
 
-  },
-  slideLength: function(){
-    return Session.get('slideLength');
+// var fetchDep = new Tracker.Dependency;
+
+// var handle = Tracker.autorun(function() {
+//   var foundSessionOrNonSession = true;
+//   if ( Session.get('isSession') ) {
+//     foundSessionOrNonSession = PresentSessions.findOne({_id:Session.get('_ps_id')});
+//     if ( foundSessionOrNonSession ) {
+//       Session.set('_sd_id', foundSessionOrNonSession.slideDeck_id);
+//       Session.set('_presenter_id', foundSessionOrNonSession.presenter_id);
+//       Session.set('_page', foundSessionOrNonSession.page);
+//     }
+//   }
+
+//   if ( foundSessionOrNonSession ) {
+//     Meteor.subscribe('slideDecks',{_id:Session.get('_sd_id')});
+
+//     var foundSlideDeck = SlideDecks.findOne({_id:Session.get('_sd_id')});
+//     if ( foundSlideDeck ) {
+//       Session.set('_title', foundSlideDeck.title);
+//       _mdSlides = foundSlideDeck.mdSlides;
+//       Session.set('_slideLength', _mdSlides.length);
+//       fetchDep.changed();
+//       // handle.stop();
+//     }
+//   }
+// });
+
+// var validatePageNum = function(page) {
+//   if ( page < 1 ) {
+//     return false;
+//   } else if ( page > Session.get('_slideLength') ) {
+//     return false;
+//   }
+//   return true;
+// };
+
+// // Predicate Function
+// var isPresentor = function() {
+//   fetchDep.depend();
+//   if ( Session.get('isSession') ) {
+//     return Session.get('_presenter_id') === Meteor.userId();
+//   }
+//   return true;
+// };
+
+/**
+ * Slide Helpers
+ */
+
+Template.slides.helpers({
+  markDownSource: function() {
+    console.log(Session.get('currentSlideDeck'));
   }
 });
   
