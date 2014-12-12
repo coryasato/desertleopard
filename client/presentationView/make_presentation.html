@@ -4,9 +4,38 @@
       <p class="columnPosition">Column Position: {{colPosition}}</p>
       <p class="rowPosition">Row Position: {{rowPosition}}</p>
       <div class="form-group">
-        <label for="exampleInputPassword1">Create Your Markdown</label>
-        <textarea class="form-control textEditor markDownText" rows="20">{{markDown}}</textarea>
+        
+        <div id="slide-creator">
+
+          <div id="markdown-input-block">
+            <label for="exampleInputPassword1">Write Your Markdown</label>
+            <textarea class="form-control textEditor markDownText" rows="20">{{markDown}}</textarea>
+          </div>
+
+          <div id="markdown-preview-block">
+            <label id="preview-label" for="exampleInputPassword1">Preview</label>
+            <div id="markdown-preview">
+            
+              <!-- <h1>A First Level Header</h1>
+              <h2>A Second Level Header</h2>
+              <h3>A Third Level Header</h3>
+              <h4>A Fourth Level Header</h4>
+              <h5>A Fifth Level Header</h5>
+              <h6>A Sixed Level Header</h6>
+              <p>Now is the time for all good men to come to
+              the aid of their country. This is just a
+              regular paragraph.</p>
+              <p>The quick brown fox jumped over the lazy
+              dog&rsquo;s back.</p>
+              <hr /> -->
+
+            </div>
+          </div>
+
+        </div>
+
         <p class="help-block"><a href="https://github.com/adam-p/markdown-here/wiki/Markdown-Cheatsheet" target="_blank">Markdown cheatsheet</a></p>
+
       </div>
       <div id="add-column" class="glyphicon glyphicon-plus newColumn"></div>
       <div id="add-row" class="glyphicon glyphicon-plus newRow"></div>
