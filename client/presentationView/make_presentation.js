@@ -108,9 +108,7 @@ Template.createPresentation.helpers({
     return Meteor.getSlideText(Session.get('rowPosition'), Session.get('colPosition'), false);
   },
   liveMarkDown: function() {
-    var savedMarkDown = Meteor.getSlideText(Session.get('rowPosition'), Session.get('colPosition'), false);
-    Session.set('liveMarkDown', savedMarkDown);
-    return Session.get('liveMarkDown');
+    return Meteor.getSlideText(Session.get('rowPosition'), Session.get('colPosition'), false);
   }
 });
 
@@ -176,12 +174,20 @@ Template.createPresentation.events({
     template.find('.markDownText').value = '';
   },
 
-  'keydown .markDownText':function(evt, template) {
-      Tracker.autorun(function() {
-      Session.set('liveMarkDown', evt.target.value);
-        
-      });
+  'keyup input.slideTitle': function(evt, template) {
+    if(evt.which === 13) {
+      return false;
     }
+    var slideTitle = $('.slideTitle').val();
+    Meteor.call('updateSlideDeck', Session.get('currentSlideDeck'), {$set: {'presentationTitle': slideTitle}});
+  },
+
+  'keypress .markDownText': function(evt, template) {
+    var markDownText = template.find('.markDownText').value;
+
+    // Updates current slide at current coordinates
+    //saveSlide(Session.get('rowPosition'), Session.get('colPosition'), evt.target.value);
+  }
   
 });
 
