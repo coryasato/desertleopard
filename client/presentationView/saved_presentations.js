@@ -25,6 +25,8 @@ Template.Presentations.events({
     event.preventDefault();
     
     Session.set('currentSlideDeck', this._id);
+    Session.set('liveMarkdown', Meteor.getSlideText(Session.get('rowPosition'), Session.get('colPosition'), false));
+
     Router.go('/create');
   },
   'click #viewModerator': function(evt, template){
