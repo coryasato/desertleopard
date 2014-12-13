@@ -318,12 +318,11 @@ div.at-signin-link p {
   }
 }
 
-
-.slide {
-  padding-top: 60px;
-}
+/*
+  .slide {
+    padding-top: 60px;
+  }*/
 .slide > h1{
-  text-align: center;
   font-size: 3.5em;
 
 }
