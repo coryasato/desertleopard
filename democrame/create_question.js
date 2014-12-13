@@ -70,23 +70,5 @@ Template.createQuestion.events({
       }
     });
   } ,
-  // 'click #vote-no': function(evt, template){
-  //   evt.preventDefault();
-  //   var rule = this;
-  //   var id = evt.currentTarget.name;
-  //   Meteor.call('voteNo', id, function(err) {
-  //     console.log('vote yes Clicked', id);
-  //     if(err) { console.log(err); 
-  //     }
-  //   });
-  // }  
 });
-
-  // Template.home.rendered = function(){
-  //     var element = $("#wrapper");
-  //     if(!element.hasClass("app")){
-  //         element.addClass("app"); 
-  //     }
-  // }
-
 }

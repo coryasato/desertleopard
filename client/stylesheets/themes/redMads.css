@@ -317,3 +317,33 @@ div.at-signin-link p {
     margin-top: 120px;
   }
 }
+
+/*
+  .slide {
+    padding-top: 60px;
+  }*/
+.slide > h1{
+  font-size: 3.5em;
+
+}
+
+.slide > h2{
+  font-size: 3em;
+
+}
+.slide > h3{
+  font-size: 2em;
+
+}
+
+.slide > h4{
+  font-size: 1.5em;
+
+}
+
+.slide > p{
+  font-size: 1.5em;
+
+}
+
+
