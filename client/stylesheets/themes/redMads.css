@@ -258,6 +258,12 @@ div.at-signin-link p {
   text-align: left;
 }
 
+/* SLIDES
+-------------------------------------------------- */
+#slide-container {
+  padding: 20px 40px 20px 40px;
+}
+
 /* RESPONSIVE CSS
 -------------------------------------------------- */
 @media (min-width: 300px) {
