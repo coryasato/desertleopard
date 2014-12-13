@@ -198,6 +198,15 @@ float: left;
   overflow: auto;
 }
 
+#slide-container #markdown-preview {
+  border: none;
+  height: 100%;
+}
+
+#slide-container img {
+  /*width: 100%;*/
+}
+
 #add-column, #add-row {
   font-size: 450%;
   opacity: 0.1;
@@ -256,6 +265,12 @@ button.at-btn:focus {
 div.at-signin-link p {
   margin-top: 20px;
   text-align: left;
+}
+
+/* SLIDES
+-------------------------------------------------- */
+#slide-container {
+  padding: 20px 40px 20px 40px;
 }
 
 /* RESPONSIVE CSS
